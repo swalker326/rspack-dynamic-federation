@@ -11,12 +11,12 @@ const initValue = init({
     {
       name: "rsbuild",
       alias: "rsbuild",
-      entry: "http://localhost:3002/remoteEntry.js"
+      entry: "https://localhost.lcp.ai:3002/remoteEntry.js"
     },
     {
       name: "rspack",
       alias: "rspack",
-      entry: "http://localhost:3003/remoteEntry.js"
+      entry: "https://localhost.lcp.ai:3003/remoteEntry.js"
     }
   ],
   // plugins: [
@@ -70,9 +70,7 @@ const App = () => (
       </div>
       <div className="border border-red-500">
         <h2 className="text-2xl">rsbuild</h2>
-        <div className="w-1/2">
-          <MicroFrontend path="rspack/App" />
-        </div>
+        <div className="w-1/2">{/* <MicroFrontend path="rspack/App" /> */}</div>
       </div>
     </div>
   </div>

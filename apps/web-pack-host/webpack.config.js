@@ -4,7 +4,7 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const deps = require("./package.json").dependencies;
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "https://localhost.lcp.ai:3001/"
+    publicPath: "auto"
   },
 
   resolve: {

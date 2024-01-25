@@ -76,6 +76,7 @@ const isDev = process.env.NODE_ENV === "development";
 module.exports = {
   entry: "./src/main.tsx",
   mode: "development",
+  publicPath: "auto",
   target: "web",
   devServer: {
     static: {
@@ -83,14 +84,8 @@ module.exports = {
     },
     https: true,
     host: "localhost.lcp.ai",
-    port: process.env.PORT || 3002
+    port: process.env.PORT || 3003
   },
-  // devServer: {
-  //   static: {
-  //     directory: path.join(__dirname, "dist")
-  //   },
-  //   port: 3003
-  // },
   output: {
     publicPath: "auto"
   },

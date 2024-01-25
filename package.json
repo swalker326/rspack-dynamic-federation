@@ -1,0 +1,10 @@
+{
+  "name": "rspack-rsbuild-module-federation",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": ""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
