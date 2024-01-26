@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { init } from "@module-federation/runtime";
+// import { MicroFrontend } from "./MicroFrontend";
 
-import "./index.scss";
+import "./App.css";
 import { MicroFrontend } from "./MicroFrontend";
 
 const initValue = init({
@@ -13,11 +14,6 @@ const initValue = init({
       alias: "rsbuild",
       entry: "https://localhost.lcp.ai:3002/remoteEntry.js"
     }
-    // {
-    //   name: "rspack",
-    //   alias: "rspack",
-    //   entry: "https://localhost.lcp.ai:3003/remoteEntry.js"
-    // }
   ],
   // plugins: [
   //   {
@@ -38,41 +34,43 @@ const initValue = init({
   // ],
   shared: {
     react: {
-      version: "18.0.0",
+      version: "18.2.0",
       scope: "default",
       lib: () => React,
       shareConfig: {
         singleton: true,
-        requiredVersion: "^1.0.0"
+        requiredVersion: "18.2.0"
       }
     },
     "react-dom": {
-      version: "18.0.0",
+      version: "18.2.0",
       scope: "default",
       lib: () => ReactDOM,
       shareConfig: {
         singleton: true,
-        requiredVersion: "^18.0.0"
+        requiredVersion: "18.2.0"
       }
     }
   }
 });
 console.log("initValue: ", initValue);
-const App = () => (
-  <div className="w-full border">
-    <h1 className="text-6xl">Rs* module federation</h1>
-    <div className="flex gap-3 w-full">
-      <div className="border border-red-500">
-        <h2 className="text-2xl">rsbuild</h2>
-        <div className="w-1/2">
-          <MicroFrontend path="rsbuild/App" />
+export const App = () => {
+  const [module, setModule] = React.useState<string>();
+  return (
+    <div className="w-full border">
+      <h1 className="text-6xl">Rs* module federation</h1>
+      <div className="flex gap-3 w-full">
+        <div className="border border-red-500">
+          <h2 className="text-2xl">rsbuild</h2>
+          <div className="w-1/2">
+            {module ? (
+              <MicroFrontend path="rsbuild/App" />
+            ) : (
+              <button onClick={() => setModule("rsbuild/App")}>Load</button>
+            )}
+          </div>
         </div>
       </div>
-      <div className="border border-red-500">
-        <h2 className="text-2xl">rsbuild</h2>
-        <div className="w-1/2">{/* <MicroFrontend path="rspack/App" /> */}</div>
-      </div>
     </div>
-  </div>
-);
-ReactDOM.render(<App />, document.getElementById("app"));
+  );
+};

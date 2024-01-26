@@ -1,7 +1,8 @@
 import fs from "fs";
 import { defineConfig } from "@rsbuild/core";
 import { pluginReact } from "@rsbuild/plugin-react";
-import mfConfig from "./modulefederation.config";
+// import mfConfig from "./modulefederation.config";
+// import { dependencies } from "./package.json";
 import rspack from "@rspack/core";
 export default defineConfig({
   server: {
@@ -12,17 +13,9 @@ export default defineConfig({
     host: "localhost.lcp.ai",
     port: 3002
   },
-  source: {
-    //@ts-expect-error not sure why this is not working
-    preEntry: false
-  },
   performance: {
-    //@ts-expect-error not sure why this is not working
     chunkSplit: {
-      override: {
-        chunks: "async",
-        minSize: 30000
-      }
+      strategy: "all-in-one"
     }
   },
   tools: {
@@ -30,7 +23,29 @@ export default defineConfig({
       output: {
         publicPath: "auto"
       },
-      plugins: [new rspack.container.ModuleFederationPlugin(mfConfig)]
+      plugins: [
+        new rspack.container.ModuleFederationPlugin({
+          name: "rsbuild",
+          exposes: {
+            "./App": "./src/App"
+          },
+          remotes: {
+            host: "host@https://localhost.lcp.ai:3000/remoteEntry.js"
+          },
+          filename: "remoteEntry.js"
+          // shared: {
+          //   ...dependencies,
+          //   react: {
+          //     singleton: true,
+          //     requiredVersion: dependencies["react"]
+          //   },
+          //   "react-dom": {
+          //     singleton: true,
+          //     requiredVersion: dependencies["react-dom"]
+          //   }
+          // }
+        })
+      ]
     }
   },
   plugins: [pluginReact()]
